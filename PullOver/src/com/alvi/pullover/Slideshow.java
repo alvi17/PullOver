@@ -2,13 +2,14 @@ package com.alvi.pullover;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,7 +18,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +50,16 @@ public class Slideshow extends ListActivity{
 		builder.setMessage("Welcome to PullOver");
 		builder.setPositiveButton("OK",null);
 		//builder.show();
+        final AlertDialog dlg = builder.create();
+        
+        dlg.show();
+		final Timer t = new Timer();
+        t.schedule(new TimerTask() {
+            public void run() {
+                dlg.dismiss(); // when the task active then close the dialog
+                t.cancel(); // also just top the timer thread, otherwise, you may receive a crash report
+            }
+        }, 2000);
 	}
 	@Override
 		public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,11 +88,15 @@ public class Slideshow extends ListActivity{
 							// TODO Auto-generated method stub
 							String name=nameEditText.getText().toString().trim();
 							Toast.makeText(getApplicationContext(), name, Toast.LENGTH_LONG).show();
+							SlideshowInfo info=new SlideshowInfo(name);
+							Log.e("SlideInfo",info.getName());
+							
 							if(name.length()!=0)
 							{
-								slideshowList.add(new SlideshowInfo(name));
+								slideshowList.add(info);
+								
 								Intent editSlideshowIntent=new Intent(Slideshow.this,SlideshowEditor.class);
-								editSlideshowIntent.putExtra("NAME_EXTRA",name);
+								editSlideshowIntent.putExtra(NAME_EXTRA,name);
 								startActivityForResult(editSlideshowIntent, 0);
 							}
 							else
@@ -182,7 +201,7 @@ public class Slideshow extends ListActivity{
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			Intent playSlideshow=new Intent(Slideshow.this,SlideshowPlayer.class);
-			playSlideshow.putExtra("NAME_EXTRA",((SlideshowInfo)v.getTag()).getName());
+			playSlideshow.putExtra(NAME_EXTRA,((SlideshowInfo)v.getTag()).getName());
 			startActivity(playSlideshow);
 		}
 	 	};
@@ -194,7 +213,7 @@ public class Slideshow extends ListActivity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent editSlideshow=new Intent(Slideshow.this,SlideshowEditor.class);
-				editSlideshow.putExtra("NAME_EXTRA",((SlideshowInfo)v.getTag()).getName());
+				editSlideshow.putExtra(NAME_EXTRA,((SlideshowInfo)v.getTag()).getName());
 				startActivityForResult(editSlideshow, 0);
 			}
 		};
@@ -226,14 +245,16 @@ public class Slideshow extends ListActivity{
 		public static SlideshowInfo getSlideshowInfo(String name)
 		{
 			
-			if(slideshowList.isEmpty())
+			if(slideshowList.contains(name))
 			{
-				Log.e("Slide", "Empty");	
+				Log.e("Slide ", name);	
 			}
+			else
+				Log.e("Not Slide"," "+ name);	
+			//return slideshowList.get(0);
 			
-
-			for(SlideshowInfo slide : slideshowList)
 			
+			for(SlideshowInfo slide:slideshowList)
 				if(slide.getName().equals(name))
 					return slide;
 			

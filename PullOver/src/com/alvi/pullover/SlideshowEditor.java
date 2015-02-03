@@ -23,7 +23,7 @@ import android.widget.Toast;
 public class SlideshowEditor extends ListActivity{
 	private SlideshowEditorAdapter slideshowEditorAdapter;
 	private SlideshowInfo slideshow;
-	private List<String> slide;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -31,8 +31,8 @@ public class SlideshowEditor extends ListActivity{
 		setContentView(R.layout.slideshow_editor);
 		
 		
-		String name =getIntent().getStringExtra(Slideshow.NAME_EXTRA);
-		
+		String name = getIntent().getStringExtra(Slideshow.NAME_EXTRA);
+		Toast.makeText(getApplicationContext(),getIntent().getStringExtra(Slideshow.NAME_EXTRA)+"", Toast.LENGTH_LONG).show();
 		slideshow=Slideshow.getSlideshowInfo(name);
 		
 		Button doneButton=(Button)findViewById(R.id.doneButton);
@@ -47,10 +47,11 @@ public class SlideshowEditor extends ListActivity{
 		Button playButton=(Button)findViewById(R.id.playButton);
 		playButton.setOnClickListener(playButtonListener);
 		
-		slide=slideshow.getImageList();
-		slideshowEditorAdapter=new SlideshowEditorAdapter(this,slide);
+
+
+		slideshowEditorAdapter=new SlideshowEditorAdapter(this,slideshow.getImageList());
 		getListView().setAdapter(slideshowEditorAdapter);
-			
+		
 	}
 	
 	private static final int PICTURE_ID=1;
