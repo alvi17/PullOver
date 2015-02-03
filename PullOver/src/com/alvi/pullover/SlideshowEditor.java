@@ -50,9 +50,7 @@ public class SlideshowEditor extends ListActivity{
 		slide=slideshow.getImageList();
 		slideshowEditorAdapter=new SlideshowEditorAdapter(this,slide);
 		getListView().setAdapter(slideshowEditorAdapter);
-		
-		
-		
+			
 	}
 	
 	private static final int PICTURE_ID=1;

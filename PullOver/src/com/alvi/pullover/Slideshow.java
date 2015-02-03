@@ -231,16 +231,16 @@ public class Slideshow extends ListActivity{
 				Log.e("Slide", "Empty");	
 			}
 			
-				return slideshowList.get(0);
+			//	return slideshowList.get(0);
 			
 			
 		//	return slideshowList.get(0);
-		//	for(SlideshowInfo slide:slideshowList)
+			for(SlideshowInfo slide : slideshowList)
 			
-		//		if(slide.getName().equals(name))
-				//	return slide;
+				if(slide.getName().equals(name))
+					return slide;
 			
-			//return null;
+			return null;
 		}
 		
 		public static Bitmap getThumbnail(Uri uri,ContentResolver cr,BitmapFactory.Options options)
