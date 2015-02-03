@@ -71,7 +71,7 @@ public class Slideshow extends ListActivity{
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							// TODO Auto-generated method stub
-							String name=nameEditText.getText().toString();
+							String name=nameEditText.getText().toString().trim();
 							Toast.makeText(getApplicationContext(), name, Toast.LENGTH_LONG).show();
 							if(name.length()!=0)
 							{
@@ -231,10 +231,7 @@ public class Slideshow extends ListActivity{
 				Log.e("Slide", "Empty");	
 			}
 			
-			//	return slideshowList.get(0);
-			
-			
-		//	return slideshowList.get(0);
+
 			for(SlideshowInfo slide : slideshowList)
 			
 				if(slide.getName().equals(name))
