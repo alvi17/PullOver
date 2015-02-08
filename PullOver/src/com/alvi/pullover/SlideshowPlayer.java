@@ -79,7 +79,6 @@ public class SlideshowPlayer extends Activity{
 		
 	}
 	
-	
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub

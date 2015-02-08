@@ -14,28 +14,37 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:drawableTop="@android:drawable/ic_media_pause"
-            android:text="Done" />
+            android:background="@drawable/button_selector"
+            android:text="Done"
+             android:layout_weight=".25"
+            />
 
         <Button
             android:id="@+id/addPictureButton"
-            android:layout_width="90dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:drawableTop="@android:drawable/ic_menu_add"
-            android:text="Add Picture"/>
+            android:text="Add"
+            android:background="@drawable/button_selector"
+            android:layout_weight=".25" />
 
         <Button
             android:id="@+id/addMusicButton"
-            android:layout_width="88dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:drawableTop="@android:drawable/ic_media_ff"
-            android:text="Add Music" />
+            android:text="Music"
+            android:background="@drawable/button_selector" 
+            android:layout_weight=".25" />
 
         <Button
             android:id="@+id/playButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:drawableTop="@android:drawable/ic_media_play"
-            android:text="Play" />
+            android:text="Play" 
+            android:background="@drawable/button_selector"
+            android:layout_weight=".25" />
 
     </LinearLayout>
 
